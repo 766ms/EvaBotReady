@@ -1,7 +1,6 @@
 # EVA — Proyecto combinado
 
 ```
-Proyecto de diego/
 ├── backend/    # EvaBot: Django (async) + Gemini/Groq. Sigue teniendo su propia interfaz en http://localhost:8000
 └── frontend/   # EVA: React 19 + Vite + Tailwind
     └── EVA/    # app de Vite (package.json, src/, vite.config.js)
