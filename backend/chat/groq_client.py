@@ -1,4 +1,5 @@
 """Respaldo de chat con Groq (API compatible con OpenAI). Solo texto: los adjuntos ya llegan como texto."""
+import asyncio
 import json
 import logging
 
@@ -25,11 +26,18 @@ def available() -> bool:
 
 def _get_client() -> httpx.AsyncClient:
     global _client
-    if _client is None or _client.is_closed:
+    try:
+        current_loop = asyncio.get_running_loop()
+    except RuntimeError:
+        current_loop = None
+
+    client_loop = getattr(_client, "_custom_loop", None)
+    if _client is None or _client.is_closed or client_loop is not current_loop:
         _client = httpx.AsyncClient(
             timeout=httpx.Timeout(10, read=60),
             limits=httpx.Limits(max_keepalive_connections=10, keepalive_expiry=120),
         )
+        _client._custom_loop = current_loop
     return _client
 
 

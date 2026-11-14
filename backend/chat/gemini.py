@@ -69,13 +69,20 @@ class _Skip(Exception):
 
 
 def _get_client() -> httpx.AsyncClient:
-    """Un solo cliente para todo el proceso: reutiliza la conexión TLS y evita ~0.3-0.8 s por mensaje."""
+    """Cliente HTTP reutilizable por bucle de eventos, evitando errores de 'Event loop is closed'."""
     global _client
-    if _client is None or _client.is_closed:
+    try:
+        current_loop = asyncio.get_running_loop()
+    except RuntimeError:
+        current_loop = None
+
+    client_loop = getattr(_client, "_custom_loop", None)
+    if _client is None or _client.is_closed or client_loop is not current_loop:
         _client = httpx.AsyncClient(
             timeout=httpx.Timeout(10, read=60),
             limits=httpx.Limits(max_keepalive_connections=10, keepalive_expiry=120),
         )
+        _client._custom_loop = current_loop
     return _client
 
 

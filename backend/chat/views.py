@@ -181,6 +181,9 @@ async def chat(request):
                 yield _sse({"t": chunk})
         except llm.LLMError as exc:
             yield _sse({"error": str(exc)})
+        except Exception as exc:
+            logger.exception("Error inesperado en streaming de chat: %s", exc)
+            yield _sse({"error": "Ocurrió un problema de conexión temporal. Inténtalo de nuevo."})
                # Si la conversación se borró mientras respondía (recargar o "Nuevo chat"), no se guarda nada.
         if parts and await Conversation.objects.filter(pk=conv.pk).aexists():
             await Message.objects.acreate(conversation=conv, role="assistant", content="".join(parts))
