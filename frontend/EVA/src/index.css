@@ -53,6 +53,17 @@
   --user-bubble-text: #ffffff;
 }
 
+/* Escala de tamaño de fuente global */
+:root[data-tamano='pequena'] {
+  font-size: 14px;
+}
+:root[data-tamano='mediana'] {
+  font-size: 16px;
+}
+:root[data-tamano='grande'] {
+  font-size: 18px;
+}
+
 /* Base body */
 body {
   background-color: var(--fondo-app);

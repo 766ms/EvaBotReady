@@ -1,5 +1,56 @@
-/* Animaciones y estilos del modo live, dictado y "Escuchar".
-   Copiados tal cual de backend/chat/templates/chat/index.html (bloque <style>), para que el frontend de React se vea y se mueva igual. */
+/* Animaciones y estilos del modo live, dictado y "Escuchar". */
+
+/* ===== Variables de tema del Modo Live ===== */
+:root {
+  --lv-pop-bg: var(--fondo, #ffffff);
+  --lv-pop-text: var(--texto, #1e293b);
+  --lv-pop-border: var(--linea, #eef2f7);
+  --lv-pop-shadow: var(--sombra, 0 -8px 30px rgba(15,23,42,.18));
+  --lv-stage-bg: #f1f5ff;
+  --lv-btn-hover: var(--hover, #f1f5f9);
+  --lv-eva-msg-bg: var(--bot-bubble-bg, #f1f5f9);
+  --lv-eva-msg-text: var(--bot-bubble-text, #1e293b);
+  --lv-user-msg-bg: var(--user-bubble-bg, #2f5bea);
+  --lv-user-msg-text: var(--user-bubble-text, #ffffff);
+  --lv-dock-bg: var(--hover, #f1f5f9);
+  --lv-dock-border: var(--linea, #e2e8f0);
+  --lv-dock-btn: var(--texto-suave, #475569);
+  --lv-dock-btn-hover: var(--fondo, #ffffff);
+  --lv-welcome-bg: linear-gradient(135deg, #eef2ff, #fdf2f8);
+  --lv-welcome-border: #e0e7ff;
+  --lv-welcome-text: #334155;
+  --lv-welcome-title: #1e293b;
+  --lv-welcome-note: #64748b;
+  --lv-mini-bg: var(--fondo, #ffffff);
+  --lv-mini-border: var(--linea, #e2e8f0);
+  --lv-mini-text: var(--texto, #1e293b);
+}
+
+:root[data-tema='oscuro'] {
+  --lv-pop-bg: #111827;
+  --lv-pop-text: #f3f4f6;
+  --lv-pop-border: #374151;
+  --lv-pop-shadow: 0 -8px 30px rgba(0,0,0,.6);
+  --lv-stage-bg: #141c2e;
+  --lv-btn-hover: #1f2937;
+  --lv-eva-msg-bg: #1f2937;
+  --lv-eva-msg-text: #f3f4f6;
+  --lv-user-msg-bg: #3b82f6;
+  --lv-user-msg-text: #ffffff;
+  --lv-dock-bg: #1f2937;
+  --lv-dock-border: #374151;
+  --lv-dock-btn: #9ca3af;
+  --lv-dock-btn-hover: #2d3748;
+  --lv-welcome-bg: linear-gradient(135deg, rgba(30, 58, 138, 0.35), rgba(131, 24, 67, 0.25));
+  --lv-welcome-border: #374151;
+  --lv-welcome-text: #e2e8f0;
+  --lv-welcome-title: #f8fafc;
+  --lv-welcome-note: #94a3b8;
+  --lv-mini-bg: #1f2937;
+  --lv-mini-border: #374151;
+  --lv-mini-text: #f3f4f6;
+}
+
 .live-dot{animation:pulse 1.4s ease-in-out infinite}
 .live-speaking{background:#fce7f3;color:#db2777}
 .live-listening{background:#e0e7ff;color:#2f5bea}
@@ -13,16 +64,16 @@
 .chat-image-wrap img{display:block;width:100%;max-height:240px;object-fit:cover;cursor:pointer}
 
 /* ===== Modo live: pop-up con Eva animada (móvil: hoja inferior · PC: panel a la derecha) ===== */
-.lv-pop{position:fixed;z-index:50;display:flex;flex-direction:column;overflow:hidden;background:#fff;
-  left:0;right:0;bottom:0;height:88vh;height:88dvh;border-radius:24px 24px 0 0;box-shadow:0 -8px 30px rgba(15,23,42,.18)}
+.lv-pop{position:fixed;z-index:50;display:flex;flex-direction:column;overflow:hidden;background:var(--lv-pop-bg);color:var(--lv-pop-text);
+  left:0;right:0;bottom:0;height:88vh;height:88dvh;border-radius:24px 24px 0 0;box-shadow:var(--lv-pop-shadow);transition:background .25s ease,color .25s ease}
 .lv-pop.lv-full{inset:0;height:auto;border-radius:0}
-.lv-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 12px 12px 16px;border-bottom:1px solid #eef2f7}
+.lv-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 12px 12px 16px;border-bottom:1px solid var(--lv-pop-border)}
 .lv-actions{display:flex;gap:2px;flex-shrink:0}
-.lv-btn{width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:10px;background:transparent;color:#64748b;cursor:pointer}
-.lv-btn:hover{background:#f1f5f9;color:#2f5bea}
-.lv-btn:focus-visible,.lv-end:focus-visible,.lv-mini-open:focus-visible,.lv-mini-end:focus-visible{outline:2px solid #2f5bea;outline-offset:2px}
+.lv-btn{width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:10px;background:transparent;color:var(--texto-suave, #64748b);cursor:pointer;transition:background .2s,color .2s}
+.lv-btn:hover{background:var(--lv-btn-hover);color:var(--acento, #2f5bea)}
+.lv-btn:focus-visible,.lv-end:focus-visible,.lv-mini-open:focus-visible,.lv-mini-end:focus-visible{outline:2px solid var(--acento, #2f5bea);outline-offset:2px}
 .lv-btn svg{width:18px;height:18px}
-.lv-stage{position:relative;flex:0 0 clamp(150px,32vh,290px);flex-basis:clamp(150px,32dvh,290px);background:#f1f5ff}
+.lv-stage{position:relative;flex:0 0 clamp(150px,32vh,290px);flex-basis:clamp(150px,32dvh,290px);background:var(--lv-stage-bg);transition:background .25s ease}
 .lv-pop.lv-full .lv-stage{flex-basis:clamp(170px,36vh,340px);flex-basis:clamp(170px,36dvh,340px)}
 /* ----- Muñeca: tres capas de movimiento (todas con los pies como punto fijo) -----
    .lv-eva  → entrada de cada pose (pequeño salto/asentamiento al cambiar de estado)
@@ -57,28 +108,28 @@
    se quitan los saltos de entrada, pero Eva sigue viva con su movimiento suave (respira, gesticula, sigue la voz) */
 @media (prefers-reduced-motion:reduce){.lv-eva{animation:none!important}.lv-eva img{transition:opacity .15s!important}}
 .lv-text{flex:1;min-height:0;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
-.lv-line{max-width:88%;padding:8px 12px;border-radius:14px;font-size:14px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
-.lv-line.user{align-self:flex-end;background:#2f5bea;color:#fff;border-bottom-right-radius:4px}
-.lv-line.eva{align-self:flex-start;background:#f1f5f9;color:#1e293b;border-bottom-left-radius:4px}
-.lv-line.note{align-self:center;max-width:100%;padding:0;background:none;color:#db2777;font-size:12px;text-align:center}
+.lv-line{max-width:88%;padding:8px 12px;border-radius:14px;font-size:0.9375rem;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.lv-line.user{align-self:flex-end;background:var(--lv-user-msg-bg);color:var(--lv-user-msg-text);border-bottom-right-radius:4px}
+.lv-line.eva{align-self:flex-start;background:var(--lv-eva-msg-bg);color:var(--lv-eva-msg-text);border-bottom-left-radius:4px}
+.lv-line.note{align-self:center;max-width:100%;padding:0;background:none;color:#db2777;font-size:0.8125rem;text-align:center}
 .lv-end:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(219,39,119,.35)}
 .lv-end:active{transform:scale(.97)}
 .lv-end::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%);transition:transform .6s}
 .lv-end:hover::after{transform:translateX(120%)}
-.lv-mini{position:fixed;z-index:50;right:16px;bottom:16px;display:flex;align-items:center;gap:4px;padding:5px 5px 5px 5px;background:#fff;border:1px solid #e2e8f0;border-radius:9999px;box-shadow:0 6px 20px rgba(15,23,42,.18)}
-.lv-mini-open{display:flex;align-items:center;gap:8px;padding:2px 8px 2px 2px;border:0;background:none;cursor:pointer;font-size:13px;font-weight:600;color:#1e293b}
+.lv-mini{position:fixed;z-index:50;right:16px;bottom:16px;display:flex;align-items:center;gap:4px;padding:5px;background:var(--lv-mini-bg);border:1px solid var(--lv-mini-border);border-radius:9999px;box-shadow:0 6px 20px rgba(15,23,42,.18);transition:background .25s ease,border-color .25s ease}
+.lv-mini-open{display:flex;align-items:center;gap:8px;padding:2px 8px 2px 2px;border:0;background:none;cursor:pointer;font-size:0.875rem;font-weight:600;color:var(--lv-mini-text)}
 .lv-mini-thumb{position:relative;width:34px;height:34px;border-radius:9999px;background:#eaf0ff}
 .lv-mini-thumb img{width:100%;height:100%;border-radius:9999px;object-fit:cover;object-position:top center}
 .lv-mini-thumb::after{content:"";position:absolute;inset:-3px;border-radius:9999px;border:2px solid #2f5bea;opacity:0;animation:lv-ring 1.8s ease-out infinite}
 .lv-mini-end{width:30px;height:30px;border:0;border-radius:9999px;background:#fce7f3;color:#db2777;font-size:18px;line-height:1;cursor:pointer}
 
 /* ----- Título, isla dinámica y botones del pop-up live ----- */
-.lv-title{min-width:0;font-size:16px;font-weight:600;letter-spacing:-.01em;color:#1e293b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.lv-foot{display:flex;flex-direction:column;align-items:center;gap:12px;padding:12px 14px calc(14px + env(safe-area-inset-bottom));border-top:1px solid #eef2f7}
+.lv-title{min-width:0;font-size:1.0625rem;font-weight:600;letter-spacing:-.01em;color:var(--lv-pop-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lv-foot{display:flex;flex-direction:column;align-items:center;gap:12px;padding:12px 14px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--lv-pop-border)}
 .lv-controls{display:flex;align-items:center;justify-content:center;gap:12px;width:100%}
 
 /* Isla dinámica: cambia de forma y de animación según lo que pasa (conectando → te escucha → escuchándote → pensando → respondiendo) */
-.lv-island{display:flex;align-items:center;justify-content:center;gap:10px;min-width:152px;height:40px;padding:0 18px;border-radius:9999px;background:#0f172a;color:#fff;font-size:13px;font-weight:500;white-space:nowrap;
+.lv-island{display:flex;align-items:center;justify-content:center;gap:10px;min-width:152px;height:40px;padding:0 18px;border-radius:9999px;background:#0f172a;color:#fff;font-size:0.8125rem;font-weight:500;white-space:nowrap;
   box-shadow:0 8px 22px rgba(15,23,42,.22);transition:min-width .5s cubic-bezier(.34,1.56,.64,1),background .35s ease,box-shadow .35s ease;animation:lv-island-in .55s cubic-bezier(.34,1.56,.64,1) backwards}
 .lv-island[data-state="hearing"]{min-width:200px;background:#1e3a8a;box-shadow:0 8px 24px rgba(30,58,138,.35)}
 .lv-island[data-state="speaking"]{min-width:200px;background:#831843;box-shadow:0 8px 24px rgba(190,24,93,.35)}
@@ -115,13 +166,13 @@
 @keyframes lv-island-in{from{opacity:0;transform:translateY(10px) scale(.7)}to{opacity:1;transform:none}}
 
 /* Botones: cápsula con micrófono, teclado y clip + botón Terminar */
-.lv-dock{display:flex;align-items:center;gap:4px;padding:4px;border-radius:9999px;background:#f1f5f9;border:1px solid #e2e8f0}
-.lv-round{position:relative;flex:0 0 auto;width:44px;height:44px;display:grid;place-items:center;border:0;border-radius:9999px;background:transparent;color:#475569;cursor:pointer;
+.lv-dock{display:flex;align-items:center;gap:4px;padding:4px;border-radius:9999px;background:var(--lv-dock-bg);border:1px solid var(--lv-dock-border);transition:background .25s ease,border-color .25s ease}
+.lv-round{position:relative;flex:0 0 auto;width:44px;height:44px;display:grid;place-items:center;border:0;border-radius:9999px;background:transparent;color:var(--lv-dock-btn);cursor:pointer;
   transition:transform .22s cubic-bezier(.34,1.56,.64,1),background .2s,color .2s,box-shadow .2s}
 .lv-round svg{position:relative;width:21px;height:21px;overflow:visible}
-.lv-round:hover{background:#fff;color:#2f5bea;transform:translateY(-2px);box-shadow:0 6px 14px rgba(47,91,234,.18)}
+.lv-round:hover{background:var(--lv-dock-btn-hover);color:var(--acento, #2f5bea);transform:translateY(-2px);box-shadow:0 6px 14px rgba(47,91,234,.18)}
 .lv-round:active{transform:scale(.9)}
-.lv-round:focus-visible,.lv-end:focus-visible{outline:2px solid #2f5bea;outline-offset:2px}
+.lv-round:focus-visible,.lv-end:focus-visible{outline:2px solid var(--acento, #2f5bea);outline-offset:2px}
 #liveAdd svg{transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
 #liveAdd:hover svg{transform:rotate(-18deg) scale(1.1)}
 #liveKeyboard .key{transition:opacity .2s}
@@ -135,8 +186,8 @@
 .lv-round.muted .lv-slash{stroke-dashoffset:0}
 .lv-ring{position:absolute;inset:0;border-radius:9999px;border:2px solid rgba(47,91,234,.55);opacity:0;pointer-events:none}
 .lv-pop[data-island="hearing"] .lv-ring{opacity:calc(.25 + var(--lvl,0) * .75);transform:scale(calc(1 + var(--lvl,0) * .32))}
-.lv-pop[data-island="hearing"] #liveMic{color:#2f5bea}
-.lv-end{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;flex:1;max-width:220px;height:52px;padding:0 20px;border:0;border-radius:9999px;background:linear-gradient(135deg,#ec4899,#db2777);color:#fff;font-size:14px;font-weight:600;cursor:pointer;
+.lv-pop[data-island="hearing"] #liveMic{color:var(--acento, #2f5bea)}
+.lv-end{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;flex:1;max-width:220px;height:52px;padding:0 20px;border:0;border-radius:9999px;background:linear-gradient(135deg,#ec4899,#db2777);color:#fff;font-size:0.9375rem;font-weight:600;cursor:pointer;
   box-shadow:0 6px 16px rgba(219,39,119,.28);transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .2s}
 .lv-end svg{width:19px;height:19px;flex-shrink:0;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
 .lv-end:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(219,39,119,.38)}
@@ -146,11 +197,11 @@
 .lv-end:hover::after{transform:translateX(120%)}
 
 /* Bienvenida al inicio de la sesión */
-.lv-welcome{align-self:stretch;padding:14px 16px;border-radius:16px;background:linear-gradient(135deg,#eef2ff,#fdf2f8);border:1px solid #e0e7ff;color:#334155;font-size:13px;line-height:1.5;animation:lv-rise .5s cubic-bezier(.16,1,.3,1) backwards}
+.lv-welcome{align-self:stretch;padding:14px 16px;border-radius:16px;background:var(--lv-welcome-bg);border:1px solid var(--lv-welcome-border);color:var(--lv-welcome-text);font-size:0.875rem;line-height:1.5;animation:lv-rise .5s cubic-bezier(.16,1,.3,1) backwards;transition:background .25s ease,border-color .25s ease}
 .lv-welcome p{margin:0}
-.lv-w-title{margin:0 0 4px!important;font-size:15px;font-weight:600;color:#1e293b}
-.lv-w-note{display:flex;align-items:flex-start;gap:8px;margin-top:10px!important;padding-top:10px;border-top:1px solid rgba(100,116,139,.2);font-size:12px;color:#64748b}
-.lv-w-note svg{width:15px;height:15px;flex-shrink:0;margin-top:1px;color:#2f5bea}
+.lv-w-title{margin:0 0 4px!important;font-size:1rem;font-weight:600;color:var(--lv-welcome-title)}
+.lv-w-note{display:flex;align-items:flex-start;gap:8px;margin-top:10px!important;padding-top:10px;border-top:1px solid var(--lv-pop-border);font-size:0.8125rem;color:var(--lv-welcome-note)}
+.lv-w-note svg{width:15px;height:15px;flex-shrink:0;margin-top:1px;color:var(--acento, #2f5bea)}
 /* ----- Animaciones del modo live ----- */
 /* Solo oscurecido, sin desenfoque: desenfocar toda la página detrás del pop-up bajaba la animación de Eva de 60 a ~23 cuadros/s en PC */
 .lv-backdrop{position:fixed;inset:0;z-index:49;background:rgba(15,23,42,.5);animation:lv-fade .28s ease backwards}
@@ -192,15 +243,15 @@
   /* PC: pop-up centrado en la pantalla. Eva a la izquierda (columna alta); encabezado, transcripción y "Terminar" a la derecha */
   .lv-pop{left:50%;top:50%;right:auto;bottom:auto;transform:translate(-50%,-50%);
     width:min(920px,calc(100vw - 48px));height:min(640px,calc(100dvh - 48px));
-    border-radius:24px;box-shadow:0 20px 60px rgba(15,23,42,.25);
+    border-radius:24px;border:1px solid var(--lv-pop-border);box-shadow:var(--lv-pop-shadow);
     display:grid;grid-template-columns:42% 1fr;grid-template-rows:auto 1fr auto;
     grid-template-areas:"stage head" "stage text" "stage foot"}
-  .lv-stage{grid-area:stage;height:auto;border-right:1px solid #eef2f7}
-  .lv-head{grid-area:head;border-bottom:1px solid #eef2f7}
+  .lv-stage{grid-area:stage;height:auto;border-right:1px solid var(--lv-pop-border)}
+  .lv-head{grid-area:head;border-bottom:1px solid var(--lv-pop-border)}
   .lv-text{grid-area:text}
   .lv-foot{grid-area:foot}
   /* Pantalla completa en PC: ocupa toda la ventana y la columna de Eva llena toda la altura */
-  .lv-pop.lv-full{inset:0;transform:none;width:auto;height:auto;border-radius:0;box-shadow:none}
+  .lv-pop.lv-full{inset:0;transform:none;width:auto;height:auto;border-radius:0;box-shadow:none;border:none}
   .lv-pop.lv-full .lv-stage{height:auto}
   .lv-mini{right:24px;bottom:24px}
   /* PC: aparece con zoom suave desde el centro (en vez de subir como hoja) */
@@ -237,7 +288,7 @@
 @media (max-width:767px) and (orientation:landscape) and (max-height:560px){
   .lv-pop,.lv-pop.lv-full{inset:0;height:auto;border-radius:0;display:grid;grid-template-columns:34% 1fr;grid-template-rows:auto 1fr auto;
     grid-template-areas:"stage head" "stage text" "stage foot"}
-  .lv-pop .lv-stage,.lv-pop.lv-full .lv-stage{grid-area:stage;flex:none;height:auto;border-right:1px solid #eef2f7}
+  .lv-pop .lv-stage,.lv-pop.lv-full .lv-stage{grid-area:stage;flex:none;height:auto;border-right:1px solid var(--lv-pop-border)}
   .lv-head{grid-area:head;padding-top:6px;padding-bottom:6px}
   .lv-text{grid-area:text;padding:10px 14px}
   .lv-foot{grid-area:foot;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:8px 10px;padding:8px 12px calc(8px + env(safe-area-inset-bottom))}
