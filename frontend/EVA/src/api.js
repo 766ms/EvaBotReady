@@ -84,5 +84,5 @@ export async function streamChat(message, onText, signal) {
 }
 
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
-export const FILE_ACCEPT = '.pdf,.docx,.xlsx,.txt,.png,.jpg,.jpeg'; // lo que sabe leer backend/chat/attachments.py
+export const FILE_ACCEPT = '.pdf,.docx,.xlsx,.pptx,.txt,.png,.jpg,.jpeg'; // lo que sabe leer backend/chat/attachments.py
 export const isImageFile = (f) => f.type.startsWith('image/') || /\.(png|jpe?g)$/i.test(f.name);

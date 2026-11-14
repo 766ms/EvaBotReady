@@ -316,8 +316,8 @@
           </div>
           <label class="flex items-center gap-2 rounded-xl border border-dashed border-slate-300 px-3.5 py-2.5 text-sm text-slate-500 cursor-pointer hover:border-[#2f5bea] hover:text-[#2f5bea]">
             <svg class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.5 12.5 21a5 5 0 0 1-7-7L14 5.5a3.3 3.3 0 0 1 4.7 4.7L10 19"/></svg>
-            <span id="fileName" class="truncate">Adjuntar PDF, Word, Excel, TXT, PNG o JPG</span>
-            <input id="file" name="file" type="file" accept=".pdf,.docx,.xlsx,.txt,.png,.jpg,.jpeg" class="hidden">
+            <span id="fileName" class="truncate">Adjuntar PDF, Word, Excel, PowerPoint, TXT, PNG o JPG</span>
+            <input id="file" name="file" type="file" accept=".pdf,.docx,.xlsx,.pptx,.txt,.png,.jpg,.jpeg" class="hidden">
           </label>
           <p id="setupError" class="hidden text-sm text-pink-600" role="alert"></p>
         </form>
@@ -344,7 +344,7 @@
     </div>
 
     <div class="flex items-end gap-1 w-full">
-      <input id="chatFileInput" type="file" accept=".pdf,.docx,.xlsx,.txt,.png,.jpg,.jpeg" class="hidden">
+      <input id="chatFileInput" type="file" accept=".pdf,.docx,.xlsx,.pptx,.txt,.png,.jpg,.jpeg" class="hidden">
       <button id="attachBtn" type="button" aria-label="Adjuntar archivo o imagen" title="Adjuntar archivo o imagen" class="size-10 grid place-items-center rounded-xl text-slate-400 hover:text-[#2f5bea] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#2f5bea]">
         <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
       </button>
@@ -417,7 +417,7 @@
         <span>Terminar</span>
       </button>
     </div>
-    <input id="liveFile" type="file" accept=".pdf,.docx,.xlsx,.txt,.png,.jpg,.jpeg" hidden>
+    <input id="liveFile" type="file" accept=".pdf,.docx,.xlsx,.pptx,.txt,.png,.jpg,.jpeg" hidden>
   </footer>
 </section>
 
